@@ -12,9 +12,10 @@
 #
 # This script appends one such entry per invocation.
 #
-# Usage: ./add.sh [ref] [text] [-n]
+# Usage: ./add.sh [ref] [word ...] [-n]
 #   ref    literal token "ref" — if present, the entry is prefixed "ref: "
-#   text   the entry text (may be omitted or empty for a blank line)
+#   word   the entry text, as one or more unquoted words joined with a
+#          single space (may be omitted or empty for a blank line)
 #   -n     suppress the additional trailing empty line
 #
 # Examples:
@@ -80,8 +81,7 @@ fi
 
 case ${#args[@]} in
     0) text="" ;;
-    1) text="${args[0]}" ;;
-    *) usage ;;
+    *) text="${args[*]}" ;;
 esac
 
 content="${prefix}${text}"
