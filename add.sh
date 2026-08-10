@@ -40,7 +40,8 @@
 #   ./add.sh ref <longtext> -n    # adds only the refs "ref: <substr_0>\n"..."ref: <substr_n>\n"
 set -euo pipefail
 
-REFS_FILE="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/refs.txt"
+SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
+REFS_FILE="$(dirname "$SCRIPT_PATH")/refs.txt"
 LINE_LIMIT=79
 usage() { echo "Usage: $0 [ref] <str> [-n]" >&2; exit 1; }
 
