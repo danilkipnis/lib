@@ -18,6 +18,14 @@
 #          single space (may be omitted or empty for a blank line)
 #   -n     suppress the additional trailing empty line
 #
+# Interactive mode: running with no arguments at all from a terminal (no
+# redirected stdin) prompts for the entry text on the next line instead of
+# immediately adding a no-item. The text is read raw via `read`, so it is
+# not subject to shell word-splitting or quoting — an apostrophe like in
+# "Maggie's Farm" needs no escaping or quotes there. An empty line at the
+# prompt falls back to adding a no-item, same as `./add.sh` with redirected
+# or no stdin.
+#
 # Examples:
 #   ./add.sh                  # adds a no-item ("\n")
 #   ./add.sh ""               # same as above
@@ -80,7 +88,12 @@ if [[ ${#args[@]} -gt 0 ]] && [[ "${args[0]}" == "ref" ]]; then
 fi
 
 case ${#args[@]} in
-    0) text="" ;;
+    0)
+        text=""
+        if [[ -t 0 ]]; then
+            read -r -p "> " text
+        fi
+        ;;
     *) text="${args[*]}" ;;
 esac
 
