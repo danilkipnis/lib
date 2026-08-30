@@ -26,8 +26,10 @@
 # prompt falls back to adding a no-item, same as `./add.sh` with redirected
 # or no stdin.
 #
+# To add a no-item unconditionally without prompting, use no-item.sh instead.
+#
 # Examples:
-#   ./add.sh                  # adds a no-item ("\n")
+#   ./add.sh                  # adds a no-item ("\n"), or prompts for text
 #   ./add.sh ""               # same as above
 #   ./add.sh test             # adds an item ("test\n") and a no-item ("\n")
 #   ./add.sh test -n          # adds only the item ("test\n"), no no-item
