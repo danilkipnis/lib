@@ -21,5 +21,11 @@ _add_completion() {
     fi
 }
 
+_no_item_completion() {
+    COMPREPLY=()
+}
+
 complete -F _add_completion add
-complete -W "" no-item
+complete -F _no_item_completion no-item
+complete -F _no_item_completion add-no-item
+
