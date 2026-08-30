@@ -1,9 +1,13 @@
 #!/usr/bin/env bash
 # SPDX-License-Identifier: GPL-2.0
-# Append an entry to refs.txt.
+# Append an entry to the target file.
 #
-# refs.txt is a line-oriented text file where each line (<text>\n) is one
-# of three kinds of entry:
+# The target file defaults to refs.txt next to this script, but can be
+# overridden with the LIB_FILE environment variable, e.g.:
+#   LIB_FILE=~/lib.txt ./add.sh test
+#
+# The target file is a line-oriented text file where each line (<text>\n)
+# is one of three kinds of entry:
 #   item      "<text>\n"        — a regular entry
 #   no-item   "\n"              — an empty line, a placeholder/spacer
 #   ref       "ref: <text>\n"   — a reference that points at a subset of
@@ -52,7 +56,7 @@
 set -euo pipefail
 
 SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
-REFS_FILE="$(dirname "$SCRIPT_PATH")/refs.txt"
+REFS_FILE="${LIB_FILE:-$(dirname "$SCRIPT_PATH")/refs.txt}"
 LINE_LIMIT=79
 usage() { echo "Usage: $0 [ref] <str> [-n]" >&2; exit 1; }
 
