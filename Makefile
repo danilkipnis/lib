@@ -12,6 +12,7 @@ NO_ITEM_TARGET := $(BINDIR)/no-item
 COMPLETIONSDIR ?= $(PREFIX)/share/bash-completion/completions
 COMPLETION_SCRIPT := $(CURDIR)/completion.bash
 COMPLETION_TARGET := $(COMPLETIONSDIR)/add
+COMPLETION_NO_ITEM_TARGET := $(COMPLETIONSDIR)/no-item
 
 .PHONY: install uninstall
 
@@ -21,6 +22,7 @@ install:
 	ln -sf "$(NO_ITEM_SCRIPT)" "$(NO_ITEM_TARGET)"
 	install -d "$(COMPLETIONSDIR)"
 	ln -sf "$(COMPLETION_SCRIPT)" "$(COMPLETION_TARGET)"
+	ln -sf "$(COMPLETION_SCRIPT)" "$(COMPLETION_NO_ITEM_TARGET)"
 
 uninstall:
-	rm -f "$(ADD_TARGET)" "$(NO_ITEM_TARGET)" "$(COMPLETION_TARGET)"
+	rm -f "$(ADD_TARGET)" "$(NO_ITEM_TARGET)" "$(COMPLETION_TARGET)" "$(COMPLETION_NO_ITEM_TARGET)"
