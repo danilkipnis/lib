@@ -43,6 +43,7 @@
 #   ./add.sh ref -n            # adds only an empty ref ("ref: \n"), no no-item
 #   ./add.sh -n                # adds nothing and prints the usage message
 #   ./add.sh "" -n             # same as above (empty text is the same as no text)
+#   ./add.sh help              # prints the usage message and adds nothing
 #
 # If <text> is longer than 79 characters (e.g. <longtext> below), it is
 # wrapped: split into substrings, each shorter than 79 characters, breaking
@@ -59,6 +60,7 @@ SCRIPT_PATH="$(readlink -f "${BASH_SOURCE[0]}")"
 REFS_FILE="${LIB_FILE:-$(dirname "$SCRIPT_PATH")/refs.txt}"
 LINE_LIMIT=79
 usage() { echo "Usage: $0 [ref] <str> [-n]" >&2; exit 1; }
+print_help() { echo "Usage: $0 [ref] <str> [-n]"; exit 0; }
 
 # Wraps $1 into lines shorter than LINE_LIMIT characters, splitting only on
 # spaces (never mid-word), and prints one line per substring.
@@ -78,6 +80,10 @@ wrap_text() {
     done
     [[ -n "$line" ]] && printf '%s\n' "$line"
 }
+
+if [[ $# -eq 1 ]] && [[ "$1" == "help" ]]; then
+    print_help
+fi
 
 suppress=""
 args=("$@")
